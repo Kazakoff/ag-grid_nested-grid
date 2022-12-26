@@ -30,32 +30,42 @@ const App = () => {
       price: 72000 },
   ]);
 
+  const onCellValueChanged = (e) => {
+    console.log(rowData);
+  }
 
   const [makeColumnDefs] = useState([
     { 
       field: 'name',
       width: 100,  
+      editable: true,
     },
-    { field: 'ssd' },
+    { field: 'ssd',
+    editable: true,
+   },
   ]);
 
   const [columnDefs] = useState([
     { field: 'make',
       width: 400,
     cellRenderer: ({ data }) => {
-      return  <AgGridReact rowData={data.make} columnDefs={makeColumnDefs}></AgGridReact>;
+      return  <AgGridReact rowData={data.make} columnDefs={makeColumnDefs} onCellValueChanged={onCellValueChanged}></AgGridReact>;
   },
   cellRendererParams: ({ data }) => ({
       id: data.id,
   }),
   },
-    { field: 'model' }, 
-    { field: 'price' },
+    { field: 'model',
+    editable: true,
+   }, 
+    { field: 'price',
+    editable: true,
+   },
   ]);
 
   return (
     <div className="ag-theme-alpine">
-      <AgGridReact rowHeight={100} rowData={rowData} columnDefs={columnDefs}></AgGridReact>
+      <AgGridReact rowHeight={100} rowData={rowData} columnDefs={columnDefs} onCellValueChanged={onCellValueChanged}></AgGridReact>
     </div>
   );
 };
